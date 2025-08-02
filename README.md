@@ -1,120 +1,112 @@
-Fitbit Conversational AI Framework
-This repository contains a Proof of Concept (POC) for a conversational AI assistant for Fitbit, built using FastAPI and LangChain. The assistant is designed to provide personalized health insights based on user data.
+# Fitbit Conversational AI Framework 🏃‍♂️
 
-Project Structure
-The project is organized in a modular src layout to separate concerns, making it scalable and maintainable:
+[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.68+-green.svg)](https://fastapi.tiangolo.com/)
+[![LangChain](https://img.shields.io/badge/LangChain-latest-orange.svg)](https://python.langchain.com/)
 
+A proof-of-concept conversational AI assistant for Fitbit that provides personalized health insights using FastAPI and LangChain.
+
+## 📋 Table of Contents
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Testing](#testing)
+
+## ✨ Features
+- Conversational AI interface for Fitbit data
+- Real-time health insights and recommendations
+- Interactive command-line and Jupyter notebook interfaces
+- Built with FastAPI for high-performance API endpoints
+- Powered by LangChain for advanced AI capabilities
+
+## 🗂 Project Structure
+```
 fitbit_conversational_ai/
-├── .gitignore
-├── README.md
-├── .env.example
-├── debug_client.py
-├── requirements.txt
-├── run_server.py
-├── notebooks/
-│   └── fitbit_poc_notebook.ipynb
 ├── src/
-│   └── fitbit_agent/
-│       ├── __init__.py
-│       ├── agent.py
-│       ├── service.py
-│       └── tools.py
-└── tests/
-    └── test_tools.py
+│   └── fitbit_agent/         # Core application logic
+│       ├── agent.py          # LangChain agent implementation
+│       ├── service.py        # FastAPI service and endpoints
+│       └── tools.py          # Agent tools and data store
+├── notebooks/                # Interactive examples
+│   └── fitbit_poc_notebook.ipynb
+├── tests/                    # Unit tests
+├── debug_client.py           # CLI debugging tool
+├── run_server.py            # Production server runner
+└── requirements.txt         # Project dependencies
+```
 
-src/fitbit_agent/: Contains the core application logic.
+## 🚀 Installation
 
-service.py: The FastAPI web service and API endpoints.
+1. **Clone the Repository**
+   ```bash
+   git clone <your_repository_url>
+   cd fitbit_conversational_ai
+   ```
 
-agent.py: The core LangChain agent logic, prompt, and memory management.
+2. **Set Up Virtual Environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-tools.py: The tools the agent can use and the mock data store.
+3. **Install Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-notebooks/: Contains the Jupyter notebook for interacting with the agent.
+## ⚙️ Configuration
 
-tests/: Contains unit tests for the application components.
+1. **Environment Setup**
+   ```bash
+   cp .env.example .env
+   ```
 
-debug_client.py: An interactive command-line client for debugging.
+2. **Configure API Key**
+   
+   Open `.env` and add your Anthropic API key:
+   ```env
+   ANTHROPIC_API_KEY="sk-ant-api03-..."
+   ```
 
-run_server.py: A simple script to run the production server.
+## 💻 Usage
 
-Setup Instructions
-Follow these steps to get the project running locally.
+### Starting the Server
 
-1. Clone the Repository
-git clone <your_repository_url>
-cd fitbit_conversational_ai
-
-2. Create and Activate a Virtual Environment
-It's highly recommended to use a virtual environment to manage project dependencies.
-
-# Create the virtual environment
-python -m venv venv
-
-# Activate it (on macOS/Linux)
-source venv/bin/activate
-
-# Or on Windows
-venv\Scripts\activate
-
-3. Install Dependencies
-Install all the required Python packages from the requirements.txt file.
-
-pip install -r requirements.txt
-
-4. Set Up Environment Variables
-The application requires an Anthropic API key to function.
-
-Copy the example .env.example file to a new file named .env.
-
-Open the .env file and add your Anthropic API key.
-
-cp .env.example .env
-# Now, edit the .env file with your text editor
-
-Your .env file should look like this:
-
-ANTHROPIC_API_KEY="sk-ant-api03-..."
-
-How to Run the Application
-1. Start the FastAPI Service
-You can run the server in two modes:
-
-Development Mode (with auto-reload):
-This is best for development, as the server will automatically restart when you make code changes.
-
+#### Development Mode
+```bash
 uvicorn src.fitbit_agent.service:app --reload
+```
 
-Production/Debug Mode:
-Use the provided run_server.py script.
-
+#### Production Mode
+```bash
 python run_server.py
+```
 
-Once the server is running, it will be accessible at http://localhost:8000.
+The server will be available at `http://localhost:8000`
 
-2. Interact with the Agent
-You have two clients to choose from:
+### Interacting with the Agent
 
-Jupyter Notebook (Recommended for Demonstration):
+#### Option 1: Jupyter Notebook (Recommended)
+1. Start Jupyter Lab:
+   ```bash
+   jupyter lab
+   ```
+2. Navigate to `notebooks/fitbit_poc_notebook.ipynb`
+3. Follow the interactive examples
 
-Start Jupyter Lab or Jupyter Notebook:
-
-jupyter lab
-
-Navigate to and open notebooks/fitbit_poc_notebook.ipynb.
-
-Run the cells in the notebook to have a guided conversation with the assistant.
-
-Interactive Debug Client:
-For a continuous, command-line conversation, run the debug_client.py script.
-
+#### Option 2: Command Line Interface
+```bash
 python debug_client.py
+```
 
-Type your questions and press Enter. Type exit to quit.
+> 💡 **Pro Tip**: Monitor the Uvicorn server logs to see detailed agent thoughts and actions for debugging.
 
-Important: While interacting with a client, check the terminal where the Uvicorn server is running. You will see the agent's detailed "thoughts" and actions printed in the logs, which is excellent for debugging.
+## 🧪 Testing
 
-How to Run Tests
-The project includes unit tests to ensure the tools function correctly. To run the tests, execute the following command from the root directory:
-
+Run the test suite:
+```bash
 python -m unittest discover tests
+```
+
